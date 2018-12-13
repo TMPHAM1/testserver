@@ -15,11 +15,11 @@ mongoose.connect(dbConfig.url, {urlNewUrlParser: true}
 
 db.on("error", function(err) {
     if (err) throw err;
-    console.log("Error");
+    res.send(err);
 })
 
 db.once("open", function() {
-    console.log("successful Connection");
+    
     routes(app, db);
 }) 
 

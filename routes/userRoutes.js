@@ -3,9 +3,9 @@ function(app, db) {
     var User = require('./models/userModels.js')
 
     app.get("/addUser", (req, res) => {
-        console.log("adding User"); 
+        res.send("adding User"); 
         User.create({username: "tmpham1", email: "tmpham1@uci.edu", password: "encryptedpassword"}, function (err,users) {
-            console.log("successfully added");
+            res.send("successfully added");
         }) 
 
         
@@ -13,25 +13,25 @@ function(app, db) {
     app.get("/checkLogin", (req, res) => {
         User.find({"username": "tmpham2", "password": "encryptedpassword"}, function (err,users) {
             if (err) {
-                console.log(err);
+                res.send(err);
             }
             if (users.length === 0) {
                 User.find({"email": "tmpham1@uci.edu", "password": "encryptedpassword"}, function(err,emailCheck) {
                     if (emailCheck) {
-                        console.log("email login successful");
+                        res.send("email success");
                     }
                     else {
-                        console.log("no users exists");
+                        res.send("no users exists");
                     }
                 }) 
                 }
             else 
-                console.log(" username login sucessful")
+                res.send(" username login sucessful");
             
             
             
             
         });
-        console.log("checking login status"); 
+        res.send("checking login status"); 
     })
 }
