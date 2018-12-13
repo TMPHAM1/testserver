@@ -1,0 +1,5 @@
+// Rename file to db.js
+// Fill in username and password 
+module.exports = {
+     url: "mongodb://<username>:<password>@ds151289.mlab.com:51289/maven-database",
+ };
