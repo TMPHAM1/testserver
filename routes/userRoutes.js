@@ -10,28 +10,45 @@ function(app, db) {
 
         
     })
-    app.get("/checkLogin", (req, res) => {
-        User.find({"username": "tmpham2", "password": "encryptedpassword"}, function (err,users) {
-            if (err) {
-                res.send(err);
+    app.post("/checkLogin", (req, res) => {
+        const output = {
+            success: false,
+        };
+        const {username, password} = req.body;
+
+       const userCheck = User.find({"username": `${username}`, "password": `${password}`}, function (err,users) {
+            if (users.length > 0) {
+                output.success = true;
+                res.send(output);
             }
-            if (users.length === 0) {
-                User.find({"email": "tmpham1@uci.edu", "password": "encryptedpassword"}, function(err,emailCheck) {
-                    if (emailCheck) {
-                        res.send("email success");
-                    }
-                    else {
-                        res.send("no users exists");
-                    }
-                }) 
+           
+            // if (users.length === 0) {
+                
+               
+            // else {
+            //     output.success = true;
+            // }  
+        }).then(function(user) { 
+            if (user.length === 0) { 
+                User.find({"email": `${username}`, "password": `${password}`}, function(err,emailCheck) {
+                    var num = emailCheck.length
+                    var output = {
+                        success: false,
+                    };
+                if (num > 0) {
+                   output["success"] = true;
+                   res.send(output);
                 }
-            else 
-                res.send(" username login sucessful");
+                else {
+                   output["error"] = "No Users Found";
+                   res.send(output);
+                }
             
+            }) 
             
-            
-            
-        });
-        res.send("checking login status"); 
+
+            }
+        } )
+
     })
 }
