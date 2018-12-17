@@ -17,13 +17,13 @@ mongoose.connect(dbConfig.url, {
  )
 
 db.on("error", function(err) {
-    res.send("error");
-})
+    console.log("error");
+});
 
 db.once("open", function() {
-    
+    console.log('here');
     routes(app, db);
-}) 
+});
 
 
 

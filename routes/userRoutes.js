@@ -2,11 +2,14 @@ module.exports =
     function (app, db) {
         var User = require('./models/userModels.js')
 
-        app.get("/addUser", (req, res) => {
+        app.post("/addUser", (req, res) => {
+            const {name, username, email, password} = req.body; 
+            console.log(name);
             User.create({
-                username: "tmpham1",
-                email: "tmpham1@uci.edu",
-                password: "encryptedpassword"
+                name: name,
+                username: username,
+                email: email,
+                password: password,
             }, function (err, users) {
                 res.send("successfully added");
             })
