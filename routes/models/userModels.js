@@ -8,7 +8,10 @@ var UserSchema = new Schema({
         type: String,
     },
     password: {
-        type: String
+        type: String,
+    },
+    level: {
+        type: String,
     }
 })
 
